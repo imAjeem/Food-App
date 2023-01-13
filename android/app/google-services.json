@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "3657110855",
+    "project_id": "foodapp-5a0ab",
+    "storage_bucket": "foodapp-5a0ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3657110855:android:b0fe7bdd57bbf75803e862",
+        "android_client_info": {
+          "package_name": "com.example.food_delhivery_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3657110855-i4vgq5lk008u74r9trfg90chmn3d3so5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMt1p86gRyKt2SvGuTGH-XkKgRzRX39is"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3657110855-i4vgq5lk008u74r9trfg90chmn3d3so5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
