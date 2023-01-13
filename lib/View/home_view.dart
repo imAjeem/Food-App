@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_delhivery_app/View/product_overview/product_overview.dart';
+
+import 'Home/single_product_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -12,7 +15,101 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
-      drawer: const Drawer(),
+      drawer: Drawer(
+        child: Container(
+          color: Color(0xffd1ad17),
+          child: ListView(
+            children: [
+              DrawerHeader(
+                child: Row(
+                  children: [
+                    const CircleAvatar(
+                      backgroundColor: Colors.black45,
+                      radius: 45,
+                      child: CircleAvatar(
+                        radius: 43,
+                        backgroundColor: Colors.red,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Welcome Guest"),
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        InkWell(
+                          onTap: () {},
+                          child: Container(
+                            height: 30,
+                            width: 70,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.black)),
+                            child: const Center(
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.w900),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              listTile(title: "Home", icon: Icons.home_outlined),
+              listTile(title: "Review Cart", icon: Icons.shop_outlined),
+              listTile(title: "My Profile", icon: Icons.person_outline),
+              listTile(title: "Notification", icon: Icons.notifications_none),
+              listTile(title: "Rating & Review", icon: Icons.star_outline),
+              listTile(title: "Wishlist", icon: Icons.favorite_border),
+              listTile(
+                  title: "Raise a Complaint", icon: Icons.list_alt_outlined),
+              listTile(title: "FAQs", icon: Icons.group_outlined),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                height: 350,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Contact Support"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: const [
+                        Text("Call us"),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("8630385886"),
+                      ],
+                    ),
+                    Row(
+                      children: const [
+                        Text("Mail us"),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("mhoajeem13@gmail.com"),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Color(0xffd6b738),
@@ -137,14 +234,34 @@ class _HomeViewState extends State<HomeView> {
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  singleProduct(),
-                  singleProduct(),
-                  singleProduct(),
-                  singleProduct(),
-                ],
-              ),
+              child: Row(children: [
+                SingleProductView(
+                  onPress: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductOverview(),
+                        ));
+                  },
+                  productImage: "assets/image/png.png",
+                  productName: "Fresh flock",
+                ),
+                SingleProductView(
+                  onPress: () {},
+                  productImage: "assets/image/png.png",
+                  productName: "Fresh flock",
+                ),
+                SingleProductView(
+                  onPress: () {},
+                  productImage: "assets/image/png.png",
+                  productName: "Fresh flock",
+                ),
+                SingleProductView(
+                  onPress: () {},
+                  productImage: "assets/image/png.png",
+                  productName: "Fresh flock",
+                ),
+              ]),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -160,10 +277,26 @@ class _HomeViewState extends State<HomeView> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  singleProduct(),
-                  singleProduct(),
-                  singleProduct(),
-                  singleProduct(),
+                  SingleProductView(
+                    onPress: () {},
+                    productImage: "assets/image/png.png",
+                    productName: "Fresh flock",
+                  ),
+                  SingleProductView(
+                    onPress: () {},
+                    productImage: "assets/image/png.png",
+                    productName: "Fresh flock",
+                  ),
+                  SingleProductView(
+                    onPress: () {},
+                    productImage: "assets/image/png.png",
+                    productName: "Fresh flock",
+                  ),
+                  SingleProductView(
+                    onPress: () {},
+                    productImage: "assets/image/png.png",
+                    productName: "Fresh flock",
+                  ),
                 ],
               ),
             ),
@@ -173,120 +306,15 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget singleProduct() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
-      height: 230,
-      width: 160,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+  Widget listTile({required IconData icon, required String title}) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        size: 32,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 5),
-              child: Image.asset(
-                "assets/image/png.png",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Fresh Basil",
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                  ),
-                  const Text(
-                    "50\$ /50 gm Basil",
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {},
-                          child: Container(
-                            height: 30,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.grey)),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  "50grm",
-                                  style: TextStyle(fontSize: 10),
-                                ),
-                                Icon(
-                                  Icons.keyboard_arrow_down,
-                                  size: 15,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {},
-                          child: Container(
-                            height: 30,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.grey)),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Icon(
-                                  Icons.remove,
-                                  color: Colors.amber,
-                                  size: 15,
-                                ),
-                                Text(
-                                  "1",
-                                  style: TextStyle(fontSize: 14),
-                                ),
-                                Icon(
-                                  Icons.add,
-                                  color: Colors.amber,
-                                  size: 15,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+      title: Text(
+        title,
+        style: TextStyle(color: Colors.black45),
       ),
     );
   }
