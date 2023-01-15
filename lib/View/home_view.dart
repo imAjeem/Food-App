@@ -1,7 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:food_delhivery_app/View/product_overview/product_overview.dart';
+import 'dart:convert';
 
-import 'Home/single_product_view.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_language_fonts/google_language_fonts.dart';
+
+
+
+import 'index_list.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -11,310 +16,144 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  List _items = [];
+
+  // Fetch content from the json file
+  Future<void> readJson() async {
+    final String response =
+    await rootBundle.loadString('assets/images/index.json');
+    final data = await json.decode(response);
+    setState(() {
+      _items = data["indexData"];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Call the readJson method when the app starts
+    readJson();
+  }
+
+  bool isSelect = true;
+  String radioButtonItem = 'परीक्षण';
+  int id = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
-      drawer: Drawer(
-        child: Container(
-          color: Color(0xffd1ad17),
-          child: ListView(
-            children: [
-              DrawerHeader(
-                child: Row(
-                  children: [
-                    const CircleAvatar(
-                      backgroundColor: Colors.black45,
-                      radius: 45,
-                      child: CircleAvatar(
-                        radius: 43,
-                        backgroundColor: Colors.red,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Welcome Guest"),
-                        const SizedBox(
-                          height: 7,
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
-                            height: 30,
-                            width: 70,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.black)),
-                            child: const Center(
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.w900),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              listTile(title: "Home", icon: Icons.home_outlined),
-              listTile(title: "Review Cart", icon: Icons.shop_outlined),
-              listTile(title: "My Profile", icon: Icons.person_outline),
-              listTile(title: "Notification", icon: Icons.notifications_none),
-              listTile(title: "Rating & Review", icon: Icons.star_outline),
-              listTile(title: "Wishlist", icon: Icons.favorite_border),
-              listTile(
-                  title: "Raise a Complaint", icon: Icons.list_alt_outlined),
-              listTile(title: "FAQs", icon: Icons.group_outlined),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                height: 350,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text("Contact Support"),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: const [
-                        Text("Call us"),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("8630385886"),
-                      ],
-                    ),
-                    Row(
-                      children: const [
-                        Text("Mail us"),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("mhoajeem13@gmail.com"),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      appBar: AppBar(
+        title: Text(
+          "मूलक परीक्षण",
+          style: DevanagariFonts.hind(
+            textStyle: TextStyle(fontWeight: FontWeight.w500),
           ),
         ),
+        centerTitle: true,
       ),
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: Color(0xffd6b738),
-        title: Text("Home"),
-        actions: const [
-          CircleAvatar(
-            radius: 12,
-            backgroundColor: Color(0xffd4d181),
-            child: Icon(
-              Icons.search,
-              size: 17,
-              color: Colors.black,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5.0),
-            child: CircleAvatar(
-              radius: 12,
-              backgroundColor: Color(0xffd4d181),
-              child: Icon(
-                Icons.shop,
-                size: 17,
-                color: Colors.black,
-              ),
-            ),
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-        child: ListView(
+      body: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 150,
-              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.all(10),
+              height: 120,
               decoration: BoxDecoration(
-                image: const DecorationImage(
-                    image: NetworkImage(
-                        "https://media.gettyimages.com/id/1278807284/photo/carbohidrates-protein-and-dietary-fiber-shot-from-above-on-dark-background-copy-space.jpg?s=612x612&w=gi&k=20&c=O69lz6e1T1A921V0yIKdh4NfeMLb-PBIUDITofuoDFg="),
-                    fit: BoxFit.cover),
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(10),
+                color: Colors.purple.shade100,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.purple),
               ),
-              child: Row(
+              child: Column(
                 children: [
-                  Expanded(
-                    flex: 2,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Radio(
+                        value: 1,
+                        groupValue: id,
+                        onChanged: (val) {
+                          setState(() {
+                            radioButtonItem = 'परीक्षण';
+                            id = 1;
+                          });
+                        },
+                      ),
+                      const Text(
+                        'परीक्षण',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 17),
+                      ),
+                      Radio(
+                        value: 2,
+                        groupValue: id,
+                        onChanged: (val) {
+                          setState(() {
+                            radioButtonItem = 'रासायनिक समीकरण';
+                            id = 2;
+                          });
+                        },
+                      ),
+                      const Text(
+                        'रासायनिक समीकरण',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 17),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding:
+                    const EdgeInsets.only(top: 10, left: 10, right: 10),
                     child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(right: 120, bottom: 10),
+                      height: 45,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 20),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          hintText: "रासायनिक समीकरण",
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(5.0),
                             child: Container(
-                              height: 40,
-                              width: 100,
-                              decoration: const BoxDecoration(
-                                color: Color(0xffd1ad17),
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(50),
-                                  bottomLeft: Radius.circular(50),
-                                ),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "Vegi",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    shadows: [
-                                      BoxShadow(
-                                        color: Colors.green,
-                                        blurRadius: 3,
-                                        offset: Offset(3, 3),
-                                      ),
-                                    ],
+                              width: 40,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon:const Icon(
+                                    Icons.search,
+                                    size: 20,
                                   ),
+                                  color: Colors.grey,
                                 ),
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
-                            child: Text(
-                              "30% Off",
-                              style: TextStyle(
-                                  color: Colors.green[100],
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 30.0),
-                            child: Text(
-                              "On all vegetables products",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Container(),
-                  ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("Herbs Seasonings"),
-                  Text("View all"),
-                ],
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: const Text(
+                "Index",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
               ),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(children: [
-                SingleProductView(
-                  onPress: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductOverview(),
-                        ));
-                  },
-                  productImage: "assets/image/png.png",
-                  productName: "Fresh flock",
-                ),
-                SingleProductView(
-                  onPress: () {},
-                  productImage: "assets/image/png.png",
-                  productName: "Fresh flock",
-                ),
-                SingleProductView(
-                  onPress: () {},
-                  productImage: "assets/image/png.png",
-                  productName: "Fresh flock",
-                ),
-                SingleProductView(
-                  onPress: () {},
-                  productImage: "assets/image/png.png",
-                  productName: "Fresh flock",
-                ),
-              ]),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("Fresh Fruits"),
-                  Text("View all"),
-                ],
-              ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SingleProductView(
-                    onPress: () {},
-                    productImage: "assets/image/png.png",
-                    productName: "Fresh flock",
-                  ),
-                  SingleProductView(
-                    onPress: () {},
-                    productImage: "assets/image/png.png",
-                    productName: "Fresh flock",
-                  ),
-                  SingleProductView(
-                    onPress: () {},
-                    productImage: "assets/image/png.png",
-                    productName: "Fresh flock",
-                  ),
-                  SingleProductView(
-                    onPress: () {},
-                    productImage: "assets/image/png.png",
-                    productName: "Fresh flock",
-                  ),
-                ],
-              ),
-            ),
+            const Expanded(child: IndexList())
           ],
         ),
-      ),
-    );
-  }
-
-  Widget listTile({required IconData icon, required String title}) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        size: 32,
-      ),
-      title: Text(
-        title,
-        style: TextStyle(color: Colors.black45),
       ),
     );
   }
